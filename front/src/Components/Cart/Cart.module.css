@@ -1,0 +1,45 @@
+.cartTotal {
+    display: flex;
+    justify-content: center;
+    margin-left: 43%;
+  }
+  .navbar {
+    display: flex;
+  }
+  .container {
+    margin-top: 59px;
+    flex-direction: row;
+  }
+  .cartEmpty{
+    margin: 180px;
+    display: flex;
+    justify-content: center;
+  }
+  .mainRow{
+    display: flex;
+    justify-content: center;
+  }
+  .allCol{
+    align-items: center;
+    margin: 20px;
+    display: flex;
+    cursor: pointer;
+  }
+  .allColImg{
+    align-items: center;
+    margin-left: 20px;
+    display: flex;
+  }
+  .allColName{
+    align-items: center;
+    display: flex;
+    width: 130px;
+    margin-left: 40px;
+  }
+  .rowItemDisplay{
+    max-height: 730px;
+    overflow: auto;
+  }
+  .addRemoveButton{
+      cursor: pointer;
+  }

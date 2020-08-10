@@ -1,1 +1,5 @@
 export const PRODUCT_TYPE="PRODUCT_TYPE"
+export const CART_TYPE="CART_TYPE"
+export const QTY_ADD="QTY_ADD"
+export const QTY_REMOVE="QTY_REMOVE"
+export const CART_ITEM_REMOVE="CART_ITEM_REMOVE"

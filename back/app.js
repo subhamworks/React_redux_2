@@ -1,9 +1,10 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const path = require("path");
 const bodyParser = require("body-parser");
-const productlist=require("./Routes/product")
-const orderlist=require("./Routes/order")
+const productlist = require("./Routes/product");
+const orderlist = require("./Routes/order");
 mongoose
   .connect("mongodb://localhost:27017/Checkout", {
     useUnifiedTopology: true,
@@ -29,6 +30,11 @@ app.use((req, res, next) => {
   }
   next();
 });
+app.use(
+  "/Assets",
+  express.static(path.join(__dirname, "Assets"), { maxAge: 864000000 })
+);
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 

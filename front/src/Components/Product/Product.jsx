@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import styles from "./Product.module.css"
 import { ProductPage } from "../../Redux/Action/ProductAction"
+import { cartSuccess } from "../../Redux/Action/ProductAction"
 import { connect } from "react-redux";
+import { CardContent, Grid, Typography, CardActions } from '@material-ui/core'
+import soldout from "../../Assets/Images/sold out.jpg"
+
 const Product = (props) => {
     const [Productstate, setProductstate] = useState()
     useEffect(() => {
         props.ProductPage()
     }, [props.ProductPage])
-    const { ProductData: { ProductItem } } = props
+    const { ProductData: { ProductItem:{ProductItem} } } = props
     useEffect(() => {
-        setProductstate(ProductItem[0])
-    }, [ProductItem[0]])
-      return (
+        setProductstate(ProductItem)
+    }, [ProductItem])
+    console.log(Productstate);
+    return (
         <div >
             <div className={styles.main} >
                 <div className={styles.row}>
@@ -20,8 +25,20 @@ const Product = (props) => {
                             return (
                                 <div className={styles.column} key={item._id}>
                                     <div className={styles.content} >
-                                        <img src="https://www.w3schools.com/w3images/mountains.jpg" alt="Mountains" width="100%" />
-                                        <h3>{item.Product_Name}</h3>
+                    {item.Product_Qty < 0 ? <img src={soldout} alt="Out Of stock" width="230px" height="150px" /> :
+
+                                        <Grid  >
+                                            <CardContent >
+                                                <img src={'http://localhost:2000' + item.Image} alt="image" width="230px" height="150px" />
+                                                <Typography varaint="h5" >{item.Product_Name}  </Typography>
+                                                {/* <Typography varaint="h5" >Qty:{item.Product_Qty}  </Typography> */}
+                                                <Typography varaint="body2" >${item.Product_Price}</Typography>
+                                            </CardContent>
+                                            <CardActions className={styles.addToCartButton} onClick={() => props.CartFun(item._id)}>
+                                                Add To Cart
+                                            </CardActions>
+                                        </Grid>
+                        }
                                     </div>
                                 </div>
                             )
@@ -39,7 +56,8 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = dispatch => {
     return {
-        ProductPage: () => dispatch(ProductPage())
+        ProductPage: () => dispatch(ProductPage()),
+        CartFun: (id) => dispatch(cartSuccess(id)),
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Product)
